@@ -1,11 +1,14 @@
 import express from "express";
 import { createServer as createViteServer } from "vite";
 import dotenv from "dotenv";
+import cors from "cors";
+import fetch from "node-fetch";
 
 dotenv.config();
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 
 app.get("/api/test", (req, res) => {
@@ -25,7 +28,7 @@ app.post("/api/send-wish", async (req, res) => {
   }
 
   try {
-    console.log(">>> [SERVER] Sending to Discord webhook...");
+    console.log(">>> [SERVER] Sending to Discord webhook:", webhookUrl.substring(0, 30) + "...");
     const response = await fetch(webhookUrl, {
       method: "POST",
       headers: {
@@ -44,6 +47,8 @@ app.post("/api/send-wish", async (req, res) => {
         }]
       }),
     });
+
+    console.log(">>> [SERVER] Discord response status:", response.status);
 
     if (!response.ok) {
       const errorText = await response.text();
