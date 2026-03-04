@@ -46,7 +46,7 @@ export default function App() {
 
   useEffect(() => {
     // Initialize background music
-    bgMusicRef.current = new Audio('/audio.mp3');
+    bgMusicRef.current = new Audio('https://raw.githubusercontent.com/anonymouspookie9869/Happy-Holi/main/audio.mp3');
     bgMusicRef.current.loop = true;
     bgMusicRef.current.volume = 0.5;
 
