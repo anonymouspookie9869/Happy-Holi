@@ -202,7 +202,7 @@ export default function App() {
           <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-pink-500 to-orange-500 rounded-lg md:rounded-xl flex items-center justify-center shadow-lg">
             <Sparkles className="text-white w-5 h-5 md:w-6 md:h-6" />
           </div>
-          <span className="font-black text-lg md:text-xl tracking-tighter uppercase">Holi 2026</span>
+          <span className="font-black text-lg md:text-xl tracking-tighter uppercase">Happy Holi</span>
         </div>
         
         <div className="flex gap-2 md:gap-4 pointer-events-auto">
@@ -277,10 +277,10 @@ export default function App() {
             transition={{ duration: 1, delay: 0.2 }}
             className="relative hidden lg:block"
           >
-            <div className="relative z-10 aspect-square rounded-[3rem] overflow-hidden shadow-2xl border-8 border-white">
+            <div className="relative z-10 aspect-square rounded-[3rem] overflow-hidden shadow-2xl border-8 border-white bg-zinc-100">
               <img 
-                src="https://images.unsplash.com/photo-1590054036457-a5a6ed763b8b?auto=format&fit=crop&q=80&w=1000" 
-                alt="Holi Celebration"
+                src="https://images.unsplash.com/photo-1536330263401-46673bc28241?auto=format&fit=crop&q=80&w=1000" 
+                alt="Colorful Holi Festival"
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"
               />
