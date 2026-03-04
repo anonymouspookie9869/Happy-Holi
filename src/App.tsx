@@ -346,15 +346,19 @@ export default function App() {
                   console.log(">>> [CLIENT] Send Wishes (Bottom) clicked");
                   setIsSending(true);
                   try {
-                    const apiUrl = `${window.location.origin}/api/send-wish`;
-                    console.log(">>> [CLIENT] Fetching:", apiUrl);
-                    const res = await fetch(apiUrl, { 
+                    console.log(">>> [CLIENT] Sending wish to /api/send-wish");
+                    const res = await fetch('/api/send-wish', { 
                       method: 'POST',
-                      headers: { 'Content-Type': 'application/json' },
+                      headers: { 
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                      },
                       body: JSON.stringify({ name: senderName })
                     });
                     
+                    console.log(">>> [CLIENT] Response status:", res.status);
                     const data = await res.json();
+                    console.log(">>> [CLIENT] Response data:", data);
                     
                     if (res.ok) {
                       setToast({ 
@@ -388,6 +392,23 @@ export default function App() {
                 {isSending ? <Loader2 className="w-6 h-6 animate-spin" /> : <Heart className="w-6 h-6 fill-current" />}
                 {isSending ? "SENDING..." : "SEND WISHES NOW"}
               </button>
+
+              <div className="mt-4 text-center">
+                <button 
+                  onClick={async () => {
+                    try {
+                      const res = await fetch('/api/test');
+                      const data = await res.json();
+                      alert(`Server connection test: ${data.message || 'Success'}`);
+                    } catch (err) {
+                      alert(`Server connection failed: ${err}`);
+                    }
+                  }}
+                  className="text-[10px] text-zinc-400 hover:text-zinc-600 transition-colors uppercase tracking-widest font-bold"
+                >
+                  Debug: Test Server Connection
+                </button>
+              </div>
             </motion.div>
           </div>
 
