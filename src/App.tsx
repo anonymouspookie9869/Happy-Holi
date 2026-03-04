@@ -351,17 +351,28 @@ export default function App() {
                       headers: { 'Content-Type': 'application/json' },
                       body: JSON.stringify({ name: senderName })
                     });
+                    
                     const data = await res.json();
-                    if (data.message) {
-                      setToast({ message: data.message, type: 'success' });
+                    
+                    if (res.ok) {
+                      setToast({ 
+                        message: data.message || "Wish sent successfully! 🎉", 
+                        type: 'success' 
+                      });
+                      setSenderName('');
                     } else {
-                      setToast({ message: "Thank you and same to you and your family from me", type: 'success' });
+                      console.error(">>> [CLIENT] Server error:", data.error);
+                      setToast({ 
+                        message: `Error: ${data.error || "Failed to send wish"}`, 
+                        type: 'error' 
+                      });
                     }
-                    setSenderName('');
                   } catch (err) {
                     console.error(">>> [CLIENT] Fetch error:", err);
-                    alert("Thank you and same to you and your family from me");
-                    setToast({ message: "Thank you and same to you and your family from me", type: 'success' });
+                    setToast({ 
+                      message: "Connection error. Please check if the server is running.", 
+                      type: 'error' 
+                    });
                   } finally {
                     setIsSending(false);
                     setTimeout(() => setToast(null), 6000);
