@@ -346,7 +346,9 @@ export default function App() {
                   console.log(">>> [CLIENT] Send Wishes (Bottom) clicked");
                   setIsSending(true);
                   try {
-                    const res = await fetch('/api/send-wish', { 
+                    const apiUrl = `${window.location.origin}/api/send-wish`;
+                    console.log(">>> [CLIENT] Fetching:", apiUrl);
+                    const res = await fetch(apiUrl, { 
                       method: 'POST',
                       headers: { 'Content-Type': 'application/json' },
                       body: JSON.stringify({ name: senderName })
