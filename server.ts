@@ -25,6 +25,7 @@ app.post("/api/send-wish", async (req, res) => {
   }
 
   try {
+    console.log(">>> [SERVER] Sending to Discord webhook...");
     const response = await fetch(webhookUrl, {
       method: "POST",
       headers: {
@@ -37,18 +38,27 @@ app.post("/api/send-wish", async (req, res) => {
           description: name ? `**${name}** clicked the 'Send Wishes' button.` : "A visitor clicked the 'Send Wishes' button.",
           color: 0xFF1493,
           timestamp: new Date().toISOString(),
+          footer: {
+            text: "Holi Festival 2026"
+          }
         }]
       }),
     });
 
     if (!response.ok) {
-      throw new Error(`Discord API responded with ${response.status}`);
+      const errorText = await response.text();
+      console.error(`>>> [SERVER] Discord API error (${response.status}):`, errorText);
+      return res.status(response.status).json({ 
+        error: `Discord API error: ${response.status}`,
+        details: errorText
+      });
     }
 
+    console.log(">>> [SERVER] Successfully sent to Discord");
     res.json({ message: "Thank you and same to you and your family from me" });
   } catch (error) {
-    console.error("Error sending to Discord:", error);
-    res.status(500).json({ error: "Failed to send wish" });
+    console.error(">>> [SERVER] Error sending to Discord:", error);
+    res.status(500).json({ error: "Failed to send wish due to server error" });
   }
 });
 
