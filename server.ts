@@ -4,7 +4,11 @@ import dotenv from "dotenv";
 import cors from "cors";
 import fetch from "node-fetch";
 
-dotenv.config();
+dotenv.config({ path: "./.env" });
+
+console.log(">>> [SERVER] Starting server...");
+console.log(">>> [SERVER] NODE_ENV:", process.env.NODE_ENV);
+console.log(">>> [SERVER] Webhook URL present:", !!process.env.DISCORD_WEBHOOK_URL);
 
 const app = express();
 
@@ -20,7 +24,7 @@ app.get("/api/test", (req, res) => {
 app.post("/api/send-wish", async (req, res) => {
   console.log(">>> [SERVER] Received /api/send-wish request");
   const { name } = req.body;
-  const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
+  const webhookUrl = process.env.DISCORD_WEBHOOK_URL?.trim();
   
   if (!webhookUrl) {
     console.error("DISCORD_WEBHOOK_URL is not set");
@@ -85,12 +89,10 @@ async function startServer() {
     });
   }
 
-  // Only listen if not running as a Vercel function
-  if (process.env.NODE_ENV !== "production" || !process.env.VERCEL) {
-    app.listen(PORT, "0.0.0.0", () => {
-      console.log(`Server running on http://localhost:${PORT}`);
-    });
-  }
+  // Always listen on port 3000 in this environment
+  app.listen(PORT, "0.0.0.0", () => {
+    console.log(`>>> [SERVER] Running at http://0.0.0.0:${PORT}`);
+  });
 }
 
 startServer();
