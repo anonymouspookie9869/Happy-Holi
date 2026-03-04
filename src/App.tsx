@@ -279,8 +279,8 @@ export default function App() {
           >
             <div className="relative z-10 aspect-square rounded-[3rem] overflow-hidden shadow-2xl border-8 border-white bg-zinc-100">
               <img 
-                src="https://images.unsplash.com/photo-1536330263401-46673bc28241?auto=format&fit=crop&q=80&w=1000" 
-                alt="Colorful Holi Festival"
+                src="https://images.unsplash.com/photo-1590076175571-4b5459efb099?auto=format&fit=crop&q=80&w=1000" 
+                alt="Happy Holi Poster"
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"
               />
